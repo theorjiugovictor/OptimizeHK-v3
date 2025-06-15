@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NORA: NextGen Omni-Retail Assistant by OptimizeHk</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            margin: 0;
+            background-color: #0a0a0a;
+            color: #e5e7eb; /* text-gray-200 */
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        #scene-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+        #hero-section {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 3;
+            padding-top: 5rem; /* Added padding to push content down from nav */
+            box-sizing: border-box; /* Ensures padding is included in height calculation */
+        }
+        .text-glow {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3), 0 0 20px rgba(240, 172, 68, 0.6);
+        }
+        /* New class for hero description text shadow for better readability */
+        .hero-text-shadow {
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+        }
+        .content-section {
+            position: relative;
+            z-index: 2;
+            background-color: #0a0a0a;
+            padding: 6rem 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .content-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- This div will hold the Three.js canvas -->
+    <div id="scene-container"></div>
+    
+    <!-- Header/Navigation -->
+    <header class="fixed top-0 left-0 right-0 p-4 z-10 bg-black/30 backdrop-blur-sm">
+        <div class="container mx-auto flex justify-between items-center">
+            <h2 class="text-xl font-bold text-white">OptimizeHk</h2>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="#solutions" class="text-gray-300 hover:text-white transition">Solutions</a>
+                <a href="#features" class="text-gray-300 hover:text-white transition">Product</a>
+                <a href="#about" class="text-gray-300 hover:text-white transition">Resources</a>
+                <a href="#" class="text-gray-300 hover:text-white transition">Pricing</a>
+                <a href="#contact" class="bg-[#f0ac44] hover:bg-[#d89836] text-black font-bold py-2 px-4 rounded-lg transition">Get Started</a>
+            </nav>
+            <button class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero-section" class="p-4">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-glow">NORA</h1>
+            <p class="mt-4 text-lg md:text-xl max-w-2xl text-gray-200 hero-text-shadow">NextGen Omni-Retail Assistant</p>
+            <div class="mt-8 max-w-2xl text-md md:text-lg text-gray-300 leading-relaxed hero-text-shadow">
+                <p>NORA is a revolutionary AI changing how we interact, discover, and decide. Seamlessly integrated into the platforms you already use, like WhatsApp and Messenger. Experience intelligent shopping without new apps or friction.</p>
+            </div>
+            <a href="#contact" class="mt-8 bg-[#f0ac44] hover:bg-[#d89836] text-black font-bold py-3 px-8 rounded-lg transition text-lg pointer-events-auto">Get Started</a>
+        </section>
+
+        <!-- The Omni-Retail Challenge -->
+        <section id="solutions" class="content-section text-center">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-white">The Omni-Retail Challenge</h2>
+                <p class="mt-4 text-lg text-gray-400">NORA Addresses Key Pain Points</p>
+                <p class="mt-4 max-w-3xl mx-auto text-gray-300">Traditional retail struggles with fragmented experiences and app fatigue. NORA provides AI-powered solutions to overcome these hurdles, making shopping intuitive and efficient.</p>
+                <div class="mt-12 grid md:grid-cols-3 gap-8 text-left">
+                    <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold text-white">Fragmented Shopping Journeys</h3>
+                        <p class="mt-2 text-gray-400">Tired of juggling multiple apps and websites? NORA unifies brand interactions into a single conversation, accessible wherever you are.</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold text-white">Impersonal & Inefficient Interactions</h3>
+                        <p class="mt-2 text-gray-400">NORA offers personalized assistance, remembering your preferences and providing smart suggestions. It's fast too – complete voice interactions and checkouts in under 5 minutes.</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold text-white">App Overload & Friction</h3>
+                        <p class="mt-2 text-gray-400">No more downloading new apps. NORA lives on platforms you already love, like WhatsApp and Messenger, offering a seamless, zero-friction experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features and Benefits -->
+        <section id="features" class="content-section text-center">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-white">NORA: The Intelligent Solution</h2>
+                <p class="mt-4 text-lg text-gray-400">Key Features and Benefits</p>
+                <p class="mt-4 max-w-3xl mx-auto text-gray-300">Explore how NORA's powerful capabilities simplify everyday commerce for users and create new opportunities for businesses.</p>
+                <div class="mt-12 space-y-8 text-left">
+                    <div class="glass-card p-6 flex flex-col md:flex-row items-center gap-6">
+                        <div class="flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="text-[#f0ac44]" viewBox="0 0 16 16"><path d="M12.643 15.097a.5.5 0 0 1-.358-.157l-4.5-4.5a.5.5 0 0 1 0-.707l4.5-4.5a.5.5 0 0 1 .714.707L8.707 10l4.148 4.148a.5.5 0 0 1-.213.849Z"/><path d="M1 10a.5.5 0 0 1 .5-.5h6.793l-1.147-1.146a.5.5 0 1 1 .707-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.707-.708L8.293 10.5H1.5A.5.5 0 0 1 1 10Z"/></svg></div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">One AI, All Your Brands</h3>
+                            <p class="mt-2 text-gray-400">No more siloed chats or tabs. NORA unifies the shopping journey across fashion, tech, food, and more. E.g., 'Hey NORA, I need a pink sofa from IKEA and then compare TVs.'</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 flex flex-col md:flex-row items-center gap-6">
+                        <div class="flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="text-[#f0ac44]" viewBox="0 0 16 16"><path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2Zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901Z"/></svg></div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Always-On, Always-Personal</h3>
+                            <p class="mt-2 text-gray-400">She remembers your preferences, understands your needs, and helps you make better choices—every time. From first purchase to follow-up support, NORA sticks with you.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 flex flex-col md:flex-row items-center gap-6">
+                        <div class="flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="text-[#f0ac44]" viewBox="0 0 16 16"><path d="M.5 10.5A.5.5 0 0 1 1 10h3.5v1a.5.5 0 0 1-1 0V10H1a.5.5 0 0 1-.5-.5Zm0-3A.5.5 0 0 1 1 7h3.5v1a.5.5 0 0 1-1 0V7H1a.5.5 0 0 1-.5-.5Zm0-3A.5.5 0 0 1 1 4h3.5v1a.5.5 0 0 1-1 0V4H1a.5.5 0 0 1-.5-.5Zm5.5.5A.5.5 0 0 1 6 4h3.5v1a.5.5 0 0 1-1 0V4H6a.5.5 0 0 1-.5-.5Zm0 3a.5.5 0 0 1 .5-.5h3.5v1a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1-.5-.5Zm0 3a.5.5 0 0 1 .5-.5h3.5v1a.5.5 0 0 1-1 0v-1H6a.5.5 0 0 1-.5-.5Zm5.5-.5a.5.5 0 0 1 .5-.5h3.5v1a.5.5 0 0 1-1 0v-1h-2a.5.5 0 0 1 0-1h2v-1a.5.5 0 0 1 1 0v1h.5a.5.5 0 0 1 0 1H11a.5.5 0 0 1-.5-.5Zm-5.5 0A.5.5 0 0 1 6 10h3.5v1a.5.5 0 0 1-1 0v-1H6a.5.5 0 0 1-.5-.5Z"/></svg></div>
+                        <div>
+                             <h3 class="text-xl font-bold text-white">Seamless & Instant</h3>
+                             <p class="mt-2 text-gray-400">NORA works inside platforms you already use—no app fatigue. Experience full voice interaction, smart suggestions, and frictionless checkout via Apple Pay, Google Pay, or Swish in under 5 minutes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits for Businesses -->
+        <section class="content-section text-center">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Benefits for Businesses</h2>
+                <p class="mt-4 text-lg text-gray-400">Empowering Your Brand with NORA</p>
+                <p class="mt-4 max-w-3xl mx-auto text-gray-300">NORA isn't just an assistant; it's a strategic growth partner, offering tangible benefits that elevate your business in the AI-driven era.</p>
+                <div class="mt-12 grid md:grid-cols-3 gap-8 text-left">
+                     <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold text-white">Plug-and-Play AI Infrastructure</h3>
+                        <p class="mt-2 text-gray-400">Instantly offer a premium AI experience without the R&D. No need to build your own AI; plug into NORA's shared smart assistant.</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold text-white">Native Brand Discovery & Engagement</h3>
+                        <p class="mt-2 text-gray-400">Your products surface organically when users ask related questions. Engage customers on their preferred messaging apps, eliminating friction.</p>
+                    </div>
+                    <div class="glass-card p-6">
+                        <h3 class="text-xl font-bold text-white">Rich Insights & Lean Operations</h3>
+                        <p class="mt-2 text-gray-400">Gain anonymized behavioral data to understand customer needs. Reduce support costs with automated, intelligent conversations for leaner operations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About and Final CTA -->
+        <section id="about" class="content-section">
+            <div class="container mx-auto max-w-4xl text-center">
+                 <h2 class="text-3xl md:text-4xl font-bold text-white">Experience the Future with NORA</h2>
+                 <p class="mt-4 max-w-3xl mx-auto text-gray-300">NORA isn’t just a tool—it’s a behavioral revolution. For users, it’s the future of intuitive shopping. For brands, it’s plug-and-play AI infrastructure. Ready to join?</p>
+                 <a href="#contact" class="mt-8 inline-block bg-[#f0ac44] hover:bg-[#d89836] text-black font-bold py-3 px-8 rounded-lg transition text-lg">Get Started Now</a>
+
+                 <div class="mt-24 text-left border-t border-gray-700 pt-8">
+                     <h3 class="text-2xl font-bold text-white">About OptimizeHk</h3>
+                     <p class="mt-4 text-gray-400">OptimizeHk is a pioneering startup transforming the omni-retail landscape with AI solutions. We are dedicated to empowering businesses to grow, innovate, and connect with customers in more meaningful ways. Our flagship product, NORA, embodies this mission by leading a behavioral revolution in how people discover, decide, and interact with brands across their digital lives.</p>
+                 </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900/50 relative z-10">
+        <div class="container mx-auto py-12 px-4 text-center text-gray-400">
+            <h2 class="text-2xl font-bold text-white">Get in Touch</h2>
+            <p class="mt-2">Ready to empower your brand? Contact us.</p>
+            <a href="mailto:contact@optimizehk.com" class="mt-4 inline-block bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition">Contact Us</a>
+            <p class="mt-8 text-sm">&copy; 2025 OptimizeHk. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // --- THREE.JS ANIMATION SCRIPT ---
+        let scene, camera, renderer;
+        let centralCore, particles;
+        const mouse = new THREE.Vector2();
+
+        function init() {
+            // Scene, Camera, Renderer setup
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 20;
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('scene-container').appendChild(renderer.domElement);
+
+            // The Central Core (Represents NORA AI)
+            const coreGeometry = new THREE.IcosahedronGeometry(4, 5);
+            const coreMaterial = new THREE.MeshStandardMaterial({
+                color: 0xf0ac44, // New gold color
+                emissive: 0x8B5F11, // Darker gold for emissive glow
+                metalness: 0.8,
+                roughness: 0.2,
+                wireframe: true,
+                wireframeLinewidth: 1.5,
+            });
+            centralCore = new THREE.Mesh(coreGeometry, coreMaterial);
+            scene.add(centralCore);
+
+            // Particle System
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 7000;
+            const posArray = new Float32Array(particlesCount * 3);
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 60; // Spread particles wider
+            }
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.035,
+                color: 0xADD8E6, // Keeping light blue for contrast
+                blending: THREE.AdditiveBlending,
+                transparent: true,
+                opacity: 0.8,
+            });
+            particles = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particles);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
+            scene.add(ambientLight);
+            const pointLight = new THREE.PointLight(0xffffff, 1.5);
+            pointLight.position.set(5, 10, 15);
+            scene.add(pointLight);
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize, false);
+            document.addEventListener('mousemove', onMouseMove, false);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = Date.now() * 0.0005;
+
+            // Animate Core and Particles
+            centralCore.rotation.x += 0.001;
+            centralCore.rotation.y += 0.0015;
+            particles.rotation.y = time * 0.1;
+
+            // Parallax camera effect
+            camera.position.x += (mouse.x * 5 - camera.position.x) * 0.05;
+            camera.position.y += (-mouse.y * 5 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onMouseMove(event) {
+            if (event.clientY < window.innerHeight) { // Only track mouse on hero
+                 mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                 mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            }
+        }
+        
+        // --- SCROLL FADE-IN EFFECT SCRIPT ---
+        const sections = document.querySelectorAll('.content-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.15
+        });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // --- Run on load ---
+        init();
+        animate();
+    </script>
+</body>
+</html>
