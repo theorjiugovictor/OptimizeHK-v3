@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NORA: NextGen Omni-Retail Assistant by OptimizeHk</title>
+    <title>NORA by OptimizeHk</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -37,13 +37,15 @@
             z-index: 3;
             padding-top: 5rem; /* Added padding to push content down from nav */
             box-sizing: border-box; /* Ensures padding is included in height calculation */
+            /* UPDATED: Added a subtle radial gradient overlay for text contrast */
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%);
         }
         .text-glow {
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.3), 0 0 20px rgba(240, 172, 68, 0.6);
         }
-        /* New class for hero description text shadow for better readability */
         .hero-text-shadow {
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+            /* Now handled by the background overlay, but can be kept for extra punch */
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
         .content-section {
             position: relative;
